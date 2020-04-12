@@ -1,4 +1,4 @@
-# arxiv_paper_web_scraping
+# Arxiv Paper Web Scraping
 A note to build a web crawler by using beautifulsoup and selenium. This program crawls arviv to get the information of five certain areas (computer science, mathematics, statistics, electrical engineering and systems science, and quantitative finance). Paper title, subject and link are fetched from the arxiv webpage and stored as a csv file. Jupyter notebook is available as well through this link.
 
 ## Import packages
