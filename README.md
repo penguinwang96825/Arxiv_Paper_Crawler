@@ -1,5 +1,5 @@
 # Arxiv Paper Web Scraping
-A note to build a web crawler by using beautifulsoup and selenium. This program crawls arviv to get the information of five certain areas (computer science, mathematics, statistics, electrical engineering and systems science, and quantitative finance). Paper title, subject and link are fetched from the arxiv webpage and stored as a csv file. Jupyter notebook is available as well through this link.
+A note to build a web crawler by using beautifulsoup and selenium. This program crawls arviv to get the information of five certain areas (computer science, mathematics, statistics, electrical engineering and systems science, and quantitative finance). Paper title, subject and link are fetched from the arxiv webpage and stored as a csv file. Jupyter notebook is available as well through this [link](https://github.com/penguinwang96825/arxiv_paper_web_scraping/blob/master/arxiv.ipynb).
 
 ## Import packages
 ```python
@@ -24,12 +24,12 @@ Get the total entries of each categories in each year.
 def get_arxiv_total_entries(year, category):
     y = int(str(year)[-2:])
     origin_url = r"https://arxiv.org/list/{}/{}?skip=0".format(category, y)
-    r = requests.get(origin_url)
+    headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'}
+    r = requests.get(origin_url, headers=headers)
     soup = BeautifulSoup(r.text, "html.parser")
     text = soup.find(name="div", attrs={"id": "dlpage"})
     total_entries = text.find(name="small")
     total_entries = int(total_entries.contents[0].split()[3])
-    driver.quit()
     return total_entries
 ```
 
@@ -126,3 +126,10 @@ def get_arxiv_dataframe(category, start_year=2010, end_year=2020):
 df = get_arxiv_dataframe(category = "cs, start_year=2010, end_year=2020)
 df.sample(5)
 ```
+|  | title | subject | link | year |
+| --- | --- | --- | --- | --- |
+| 32916 | Periodic particle arrangements using standing... | Numerical Analysis (math.NA) | https://arxiv.org/abs/1908.08664 | 2019 |
+| 17914 | Analytic connectivity of kk-uniform hypergraphs | Combinatorics (math.CO) | https://arxiv.org/abs/1507.02763 | 2015 |
+| 14420 | Kernel and wavelet density estimators on mani... | Probability (math.PR) | https://arxiv.org/abs/1805.04682 | 2018 |
+| 1743 | Analysis of Evidence Using Formal Event Recon... | Formal Languages and Automata Theory (cs.FL) | https://arxiv.org/abs/1302.2308 | 2013 |
+| 12006 | Sequential Bayesian optimal experimental desi... | Methodology (stat.ME) | https://arxiv.org/abs/1604.08320 | 2016 |
